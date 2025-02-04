@@ -656,5 +656,36 @@ const products = [
       "apparel",
       "mens"
     ]
+  },
+  {
+    id: "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    image: "images/products/backpack.jpg",
+    name: "Durable Travel Backpack",
+    rating: {
+      stars: 5,
+      count: 142
+    },
+    priceCents: 3599,
+    keywords: [
+      "backpack",
+      "travel",
+      "bags",
+      "outdoor"
+    ]
+  },
+  {
+    id: "0987abcd-6543-ef21-0fed-cba987654321",
+    image: "images/products/umbrella.jpg",
+    name: "Windproof Compact Umbrella",
+    rating: {
+      stars: 3.5,
+      count: 98
+    },
+    priceCents: 1899,
+    keywords: [
+      "umbrella",
+      "rain",
+      "accessory"
+    ]
   }
 ];
