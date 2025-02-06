@@ -3,7 +3,7 @@
 2. Generate HTML
 3. Make it interactive
 */
-
+import { products } from '../data/products.js';
 import {cart} from '../data/cart.js';
 
 let productsHTML = "";
