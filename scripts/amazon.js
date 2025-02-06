@@ -4,7 +4,7 @@
 3. Make it interactive
 */
 import { products } from '../data/products.js';
-import {cart} from '../data/cart.js';
+import {cart, addToCart} from '../data/cart.js';
 
 let productsHTML = "";
 
@@ -65,46 +65,35 @@ products.forEach((product) => {
 });
 
 document.querySelector(".js-products-grid").innerHTML = productsHTML;
+
+function updateCartQuantity(){
+    let cartQuantity = 0;
+    cart.forEach((cartItem)=>{
+        cartQuantity += cartItem.quantity;
+    });
+    document.querySelector('.js-cart-quantity').innerHTML= cartQuantity;
+}
+
 const addedMessageTimeouts = {};
+function showAddMessage(productId){
+    const addMessage = document.querySelector(`.js-added-${productId}`); 
+    const previousTimeoutId = addedMessageTimeouts[productId];
+    if(previousTimeoutId){ 
+        clearTimeout(previousTimeoutId);
+    }
+    addMessage.style.opacity = '1';
+    const timeOutId = setTimeout(()=>{
+        addMessage.style.opacity = '0'; 
+        delete addedMessageTimeouts[productId]; 
+    },1000);
+    //save timeOutId for this product, each productId is a property
+    addedMessageTimeouts[productId] = timeOutId;
+}
 document.querySelectorAll('.js-add-to-cart').forEach((button)=>{
     button.addEventListener('click',()=>{
         const {productId} = button.dataset; //destructuring
-        const selector = document.querySelector(`.js-quantity-selector-${productId}`);
-        const quantity = Number(selector.value);
-        let matchingItem;
-        cart.forEach((item)=>{
-            if(productId === item.productId){
-                matchingItem = item;   
-            }
-        });
-        if(matchingItem){
-            matchingItem.quantity += quantity;    
-        }else{
-            cart.push({
-                productId,
-                quantity
-            });
-        }
-
-        let cartQuantity = 0;
-
-        cart.forEach((item)=>{
-            cartQuantity += item.quantity;
-        });
-
-        document.querySelector('.js-cart-quantity').innerHTML= cartQuantity;
-
-        const addMessage = document.querySelector(`.js-added-${productId}`); 
-        const previousTimeoutId = addedMessageTimeouts[productId];
-        if(previousTimeoutId){ 
-            clearTimeout(previousTimeoutId);
-        }
-        addMessage.style.opacity = '1';
-        const timeOutId = setTimeout(()=>{
-            addMessage.style.opacity = '0'; 
-            delete addedMessageTimeouts[productId]; 
-        },2000);
-        //save timeOutId for this product, save productId as a property
-        addedMessageTimeouts[productId] = timeOutId;
+        addToCart(productId);
+        updateCartQuantity();
+        showAddMessage(productId);
     })
 });
