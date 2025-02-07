@@ -1,4 +1,4 @@
-export const cart = [{
+export let cart = [{
     productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
     quantity: 2
 },{
@@ -24,3 +24,14 @@ export function addToCart(productId){
         });
     }
 }
+
+export function removeFromCart(productId) {
+    //Cách 1: chỉnh sửa mảng gốc, không cần sửa const-> let
+    // const index = cart.findIndex((cartItem) => cartItem.productId === productId);
+    // if (index !== -1) {
+    //   cart.splice(index, 1);
+    // } else {
+    //   alert("Product not found or already deleted");
+    // }
+    cart = cart.filter(cartItem => cartItem.productId !== productId);
+  }
