@@ -41,3 +41,11 @@ export function removeFromCart(productId) {
 function saveToStorage(key,saveItem){
     localStorage.setItem(key,JSON.stringify(saveItem));
 }
+
+export function calculateCartQuantity(){
+    let cartQuantity = 0;
+    cart.forEach((cartItem)=>{
+        cartQuantity += cartItem.quantity;
+    });
+    return cartQuantity;
+}
