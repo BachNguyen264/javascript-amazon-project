@@ -61,3 +61,9 @@ export function updateQuantity(productId,newQuantity){
 function findMatchingItem(productId){
     return cart.find(cartItem => cartItem.productId === productId);
 }
+
+export function updateDeliveryOption(productId, deliveryOptionId){
+    const matchingItem = findMatchingItem(productId);
+    matchingItem.deliveryOptionId = deliveryOptionId;
+    saveToStorage();
+}
