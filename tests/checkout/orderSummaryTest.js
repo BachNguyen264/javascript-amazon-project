@@ -1,5 +1,6 @@
 import { renderOrderSummary } from "../../scripts/checkout/orderSummary.js";
 import { cart, loadFromStorage } from "../../data/cart.js";
+import { products } from "../../data/products.js";
 
 describe('test suite: renderOrderSummary', ()=>{
     const productId1 = 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6';
@@ -35,7 +36,12 @@ describe('test suite: renderOrderSummary', ()=>{
         expect(
             document.querySelector(`.js-product-quantity-${productId2}`).innerText
         ).toContain('Quantity: 1');
-        document.querySelector('.js-test-container').innerHTML = '';
+        expect(
+            document.querySelector(`.js-product-name-${productId1}`).innerText    
+        ).toEqual(products.find(product=> product.id === productId1).name); 
+        expect(
+            document.querySelector(`.js-product-name-${productId2}`).innerText    
+        ).toEqual(products.find(product=> product.id === productId2).name);    
     });
 
     it('removes a product',()=>{
@@ -51,6 +57,9 @@ describe('test suite: renderOrderSummary', ()=>{
         ).not.toEqual(null);
         expect(cart.length).toEqual(1);
         expect(cart[0].productId).toEqual(productId2);
+    });
+
+    afterEach(()=>{
         document.querySelector('.js-test-container').innerHTML = '';
     });
 });
