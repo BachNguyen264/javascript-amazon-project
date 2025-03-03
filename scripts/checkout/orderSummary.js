@@ -4,10 +4,9 @@ import {
     updateQuantity,
     updateDeliveryOption
 } from "../../data/cart.js";
-import { products } from "../../data/products.js";
+import { products, findMatchingProduct } from "../../data/products.js";
 import { formatCurrency } from "../utils/money.js";
-import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
-import {deliveryOptions, calculateDeliveryDate} from '../../data/deliveryOption.js';
+import {deliveryOptions, calculateDeliveryDate, findDeliveryOptionById} from '../../data/deliveryOption.js';
 import { renderPaymentSummary } from "./paymentSummary.js";
 import { updateCheckoutHeader } from "./checkOutHeader.js";
   
@@ -15,13 +14,9 @@ export function renderOrderSummary() {
     let cartHtml = "";
     cart.forEach((cartItem) => {
       const productId = cartItem.productId;
-      const matchingProduct = products.find(
-        (product) => product.id === productId
-      );
+      const matchingProduct = findMatchingProduct(productId);
       const deliveryOptionId = cartItem.deliveryOptionId;
-      const deliveryOption = deliveryOptions.find(
-        (option) => option.id === deliveryOptionId
-      );
+      const deliveryOption =  findDeliveryOptionById(deliveryOptionId); 
 
       const dateString = calculateDeliveryDate(deliveryOption);
   

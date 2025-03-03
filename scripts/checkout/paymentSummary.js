@@ -1,21 +1,17 @@
 import {cart, calculateCartQuantity} from "../../data/cart.js";
-import { products } from "../../data/products.js";
+import { findMatchingProduct } from "../../data/products.js";
 import { formatCurrency } from "../utils/money.js";
-import { deliveryOptions } from "../../data/deliveryOption.js";
+import { findDeliveryOptionById } from "../../data/deliveryOption.js";
 
 export function renderPaymentSummary(){
     const cartQuantity= calculateCartQuantity();
     let cartTotalPrice=0;
     let shipPrice =0;
     cart.forEach((cartItem)=>{
-        const matchingProduct = products.find(
-            product => product.id === cartItem.productId
-        );
+        const matchingProduct = findMatchingProduct(cartItem.productId);
         cartTotalPrice += (matchingProduct.priceCents)*(cartItem.quantity);
 
-        const matchingDelivery = deliveryOptions.find(
-            option => option.id === cartItem.deliveryOptionId
-        );
+        const matchingDelivery = findDeliveryOptionById(cartItem.deliveryOptionId);
         shipPrice += matchingDelivery.priceCents;
     });
     const priceBeforeTax = cartTotalPrice + shipPrice;
