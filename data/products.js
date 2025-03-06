@@ -9,9 +9,9 @@ class Product {
   image;
   name;
   rating;
-  priceCents;  
+  priceCents;
 
-  constructor(productDetails){
+  constructor(productDetails) {
     this.id = productDetails.id;
     this.image = productDetails.image;
     this.name = productDetails.name;
@@ -19,12 +19,33 @@ class Product {
     this.priceCents = productDetails.priceCents;
   }
 
-  getStarUrl(){
+  getStarUrl() {
     return `images/ratings/rating-${this.rating.stars * 10}.png`;
   }
 
-  getPrice(){
-    return `$${formatCurrency(this.priceCents)}`
+  getPrice() {
+    return `$${formatCurrency(this.priceCents)}`;
+  }
+
+  extraInfoHTML(){
+    return '';
+  }
+}
+
+class Clothing extends Product {
+  sizeChartLink;
+
+  constructor(productDetails) {
+    super(productDetails);
+    this.sizeChartLink = productDetails.sizeChartLink;
+  }
+
+  extraInfoHTML() {
+    return `
+      <a href="${this.sizeChartLink}" target="_blank">
+        Size chart
+      </a>
+    `;
   }
 }
 
@@ -521,7 +542,9 @@ export const products = [
     priceCents: 1899,
     keywords: ["umbrella", "rain", "accessory"],
   },
-].map((productDetails)=>{
-   return new Product(productDetails);
+].map((productDetails) => {
+  if (productDetails.type === "clothing") {
+    return new Clothing(productDetails);
+  }
+  return new Product(productDetails);
 });
-
