@@ -1,14 +1,14 @@
 class Cart {
   cartItems;
-  localStorageKey;
+  #localStorageKey;
 
   constructor(localStorageKey){
-    this.localStorageKey = localStorageKey;
-    this.loadFromStorage();
+    this.#localStorageKey = localStorageKey;
+    this.#loadFromStorage();
   }
 
-  loadFromStorage() {
-    this.cartItems = JSON.parse(localStorage.getItem(this.localStorageKey)) || [
+  #loadFromStorage() {
+    this.cartItems = JSON.parse(localStorage.getItem(this.#localStorageKey)) || [
       {
         productId: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
         quantity: 2,
@@ -23,10 +23,10 @@ class Cart {
   }
 
   saveToStorage() {
-    const prevCart = localStorage.getItem(this.localStorageKey);
+    const prevCart = localStorage.getItem(this.#localStorageKey);
     const newCart = JSON.stringify(this.cartItems);
     if (prevCart !== newCart) {
-      localStorage.setItem(this.localStorageKey, newCart);
+      localStorage.setItem(this.#localStorageKey, newCart);
     }
   }
 
