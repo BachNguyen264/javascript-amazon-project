@@ -82,3 +82,7 @@ export function loadCart(fun){
   xhr.open('GET','https://supersimplebackend.dev/cart');
   xhr.send();
 }
+
+export function renderCartQuantity(classToRender){
+    document.querySelector(`.${classToRender}`).innerHTML= calculateCartQuantity();
+}

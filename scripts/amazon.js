@@ -4,7 +4,7 @@
 3. Make it interactive
 */
 import { products, loadProducts } from '../data/products.js';
-import { addToCart, calculateCartQuantity} from '../data/cart.js';
+import { addToCart, renderCartQuantity} from '../data/cart.js';
 
 loadProducts(renderProductsGrid);
 
@@ -71,11 +71,7 @@ function renderProductsGrid(){
 
     document.querySelector(".js-products-grid").innerHTML = productsHTML;
 
-    function updateCartQuantity(){
-        document.querySelector('.js-cart-quantity').innerHTML= calculateCartQuantity();
-    }
-
-    updateCartQuantity();
+    renderCartQuantity('js-cart-quantity');
 
     const addedMessageTimeouts = {};
     function showAddMessage(productId){
@@ -96,7 +92,7 @@ function renderProductsGrid(){
         button.addEventListener('click',()=>{
             const {productId} = button.dataset; //destructuring
             addToCart(productId);
-            updateCartQuantity();
+            renderCartQuantity('js-cart-quantity');
             showAddMessage(productId);
         })
     });
