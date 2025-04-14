@@ -15,7 +15,7 @@ export function loadFromStorage(){
 
 export function addToCart(productId){
     const selector = document.querySelector(`.js-quantity-selector-${productId}`);
-    const quantity = Number(selector.value);
+    const quantity = selector?Number(selector.value): 1;
     let matchingItem = findMatchingItem(productId);
     if(matchingItem){
         matchingItem.quantity += quantity;    

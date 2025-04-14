@@ -74,7 +74,7 @@ function renderProductsGrid(){
     renderCartQuantity('js-cart-quantity');
 
     const addedMessageTimeouts = {};
-    function showAddMessage(productId){
+    function showAddedMessage(productId){
         const addMessage = document.querySelector(`.js-added-${productId}`); 
         const previousTimeoutId = addedMessageTimeouts[productId];
         if(previousTimeoutId){ 
@@ -93,7 +93,7 @@ function renderProductsGrid(){
             const {productId} = button.dataset; //destructuring
             addToCart(productId);
             renderCartQuantity('js-cart-quantity');
-            showAddMessage(productId);
+            showAddedMessage(productId);
         })
     });
 }

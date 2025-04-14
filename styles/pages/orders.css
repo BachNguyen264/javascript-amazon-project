@@ -151,6 +151,18 @@
   margin-right: 15px;
 }
 
+.buy-again-success {
+  display: none;
+}
+
+.added-to-cart .buy-again-icon,
+.added-to-cart .buy-again-message  {
+  display: none;
+}
+
+.added-to-cart .buy-again-success {
+  display: inline;
+}
 .product-actions {
   align-self: start;
 }
