@@ -4,3 +4,8 @@ export function formatDate(date) {
   const time = dayjs(date);
   return time.format("MMMM D");
 }
+
+export function formatDateDay(date) {
+  const time = dayjs(date);
+  return time.format("dddd ,MMMM D");
+}
